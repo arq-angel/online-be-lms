@@ -35,3 +35,21 @@ export const userActivationUrlEmailTemplate = ({ email, name, url }) => {
     `, // HTML body
   };
 };
+
+export const userAccountActivatedNotificaionEmail = ({ email, name }) => {
+  return {
+    from: `"Local Library" <${process.env.SMTP_EMAIL}>`,
+    to: email,
+    subject: "Your account is now active",
+    text: `Hello ${name}, your account is ready to use. You may go and sign in now.`, // plain‑text body
+    html: `
+       <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+        <p>Hello ${name},</p>
+
+        <p>Your account is ready to use. You may go and sign in now.</p>
+
+        <p>Regards,<br/>Local Library Team</p>
+      </div>
+    `, // HTML body
+  };
+};

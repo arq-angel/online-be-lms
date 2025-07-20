@@ -13,9 +13,18 @@ POST {{rootUrl}}/api/v1/auth/register
 Content-Type: application/json
 
 {
-  "fName": "John",
-  "lName": "Doe",
+  "fName": "John3",
+  "lName": "Doe33",
   "email": "john8@doe.com",
   "phone": "0455667788",
   "password": "Password@123"
+}
+
+### Post to activate user
+POST {{rootUrl}}/api/v1/auth/activate-user
+Content-Type: application/json
+
+{
+  "sessionId": "687ccf4d214567f16d60dfcd",
+  "t": "b807d164-7fcc-4b0a-92bd-f600991ad41b"
 }
