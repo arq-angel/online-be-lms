@@ -6,7 +6,8 @@ export const LNAME = Joi.string().min(5);
 export const LNAME_REQ = LNAME.required();
 export const EMAIL = Joi.string().email({ minDomainSegments: 2 }).min(5);
 export const EMAIL_REQ = EMAIL.required();
-export const PASSWORD = Joi.string().min(5).required();
+export const PASSWORD = Joi.string().min(5);
+export const PASSWORD_REQ = PASSWORD.required();
 export const PHONE = Joi.number();
 export const PHONE_REQ = PHONE.required();
 

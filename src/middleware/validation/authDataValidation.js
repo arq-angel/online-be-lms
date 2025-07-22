@@ -4,7 +4,7 @@ import {
   EMAIL_REQ,
   FNAME_REQ,
   LNAME_REQ,
-  PASSWORD,
+  PASSWORD_REQ,
   PHONE,
   SESSION_REQ,
   TOKEN_REQ,
@@ -17,7 +17,7 @@ export const newUserDataValidation = (req, res, next) => {
     lName: LNAME_REQ,
     phone: PHONE,
     email: EMAIL_REQ,
-    password: PASSWORD,
+    password: PASSWORD_REQ,
   };
 
   return validateData({ req, res, next, obj });
@@ -28,6 +28,16 @@ export const userActivationDataValidation = (req, res, next) => {
   const obj = {
     sessionId: SESSION_REQ,
     t: TOKEN_REQ,
+  };
+
+  return validateData({ req, res, next, obj });
+};
+
+export const loginDataValidation = (req, res, next) => {
+  // create schema or rules obj
+  const obj = {
+    email: EMAIL_REQ,
+    password: PASSWORD_REQ,
   };
 
   return validateData({ req, res, next, obj });

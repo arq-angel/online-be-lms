@@ -1,15 +1,21 @@
 import { responseClient } from "../middleware/responseClient.js";
-import { createNewUser, updateUser } from "../models/user/UserModel.js";
+import {
+  createNewUser,
+  getUserByEmail,
+  updateUser,
+} from "../models/user/UserModel.js";
 import {
   createNewSession,
+  deleteManySessions,
   deleteSession,
 } from "../models/session/SessionModel.js";
-import { hashPassword } from "../utils/bcrypt.js";
+import { comparePassword, hashPassword } from "../utils/bcrypt.js";
 import { v4 as uuidv4 } from "uuid";
 import {
   useActivatedNotificationEmail,
   userActivationUrlEmail,
 } from "../services/email/emailService.js";
+import { getJwts } from "../utils/jwt.js";
 
 export const insertNewUser = async (req, res, next) => {
   try {
@@ -33,7 +39,6 @@ export const insertNewUser = async (req, res, next) => {
         const url = `${process.env.ROOT_URL}/activate-user?sessionId=${session._id}&t=${session.token}`;
 
         // send this url to their email
-        console.log(url);
         const emailId = await userActivationUrlEmail({
           email: user.email,
           url,
@@ -64,7 +69,6 @@ export const insertNewUser = async (req, res, next) => {
 export const activateUser = async (req, res, next) => {
   try {
     const { sessionId, t } = req.body;
-    console.log(sessionId, t);
 
     const session = await deleteSession({
       _id: sessionId,
@@ -91,6 +95,55 @@ export const activateUser = async (req, res, next) => {
     const message = "Invalid link or token expired!";
     const statusCode = 400;
     responseClient({ req, res, message, statusCode });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const loginUser = async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+
+    // get user by email
+    const user = await getUserByEmail(email);
+
+    if (user?._id) {
+      // compare password
+      const isPassMatch = comparePassword(password, user?.password);
+
+      if (isPassMatch) {
+        // create jwts
+        const jwts = await getJwts(user.email);
+
+        // respond jwts
+        responseClient({
+          req,
+          res,
+          message: "Login successfull",
+          payload: jwts,
+        });
+      }
+    }
+
+    const message = "Invalid login credentials!";
+    const statusCode = 401;
+    responseClient({ req, res, message, statusCode });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const logoutUser = async (req, res, next) => {
+  try {
+    // get the token
+    // udpate refreshJWT to ""
+    const { email } = req.userInfo;
+    await updateUser({ email }, { refreshJWT: "" });
+
+    // remove the accessJWT from the session table
+    await deleteManySessions({ association: email });
+
+    responseClient({ req, res, message: "You are logged out!" });
   } catch (error) {
     next(error);
   }

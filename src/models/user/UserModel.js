@@ -9,3 +9,13 @@ export const createNewUser = (userObj) => {
 export const updateUser = (filter, update) => {
   return UserSchema.findOneAndUpdate(filter, update, { new: true });
 };
+
+// get user by email, @email: type string
+export const getUserByEmail = (email) => {
+  return UserSchema.findOne({ email });
+};
+
+// get one user slower process
+export const getOneUser = (filter) => {
+  return UserSchema.findOne(filter);
+};

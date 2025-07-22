@@ -2,8 +2,6 @@ import Joi from "joi";
 import { responseClient } from "../responseClient.js";
 
 export const validateData = ({ req, res, next, obj }) => {
-  console.log(req.body);
-
   // create schema or rules
   const schema = Joi.object(obj);
 
