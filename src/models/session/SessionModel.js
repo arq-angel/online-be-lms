@@ -19,3 +19,17 @@ export const deleteManySessions = (filter) => {
 export const getSession = (token) => {
   return SessionSchema.findOne({ token });
 };
+
+// get session with association
+export const getSessionWithAssociation = (filter) => {
+  return SessionSchema.findOne(filter);
+};
+
+// get session with association and delete the session
+export const getSessionWithAssociationAndDeleteSession = async (filter) => {
+  const session = await SessionSchema.findOne(filter);
+  if (session) {
+    await SessionSchema.deleteOne({ _id: session._id });
+  }
+  return session;
+};

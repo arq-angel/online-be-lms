@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "email": "john@doe.com",
-  "password": "Password@123"
+  "password": "Password@1234"
 }
 
 ### Get user profile
@@ -46,3 +46,23 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ
 ### Renew accessJWT
 GET {{rootUrl}}/api/v1/auth/renew-jwt
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzE1NjA2OCwiZXhwIjoxNzU1NzQ4MDY4fQ.usuUmQy_5tUGlZL69ZLsNkDifad32dW1arXTbe0Mivg
+
+
+### request OTP
+POST {{rootUrl}}/api/v1/auth/otp 
+Content-Type: application/json
+
+{
+  "email": "john@doe.com"
+}
+
+
+### Reset password
+POST {{rootUrl}}/api/v1/auth/reset-password 
+Content-Type: application/json
+
+{
+  "email": "john@doe.com",
+  "password": "Password@1234",
+  "otp": 7120
+}

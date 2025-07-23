@@ -1,13 +1,17 @@
 import express from "express";
 import {
   activateUser,
+  generateOTP,
   insertNewUser,
   loginUser,
   logoutUser,
+  resetNewPassword,
 } from "../controllers/authController.js";
 import {
   loginDataValidation,
+  newPasswordResetValidation,
   newUserDataValidation,
+  resetPasswordEmailValidation,
   userActivationDataValidation,
 } from "../middleware/validation/authDataValidation.js";
 import {
@@ -31,5 +35,11 @@ router.get("/renew-jwt", renewAccessJWTMiddleware);
 
 // logout
 router.get("/logout", userAuthMiddleware, logoutUser);
+
+// otp
+router.post("/otp", resetPasswordEmailValidation, generateOTP);
+
+// reset password
+router.post("/reset-password", newPasswordResetValidation, resetNewPassword);
 
 export default router;
