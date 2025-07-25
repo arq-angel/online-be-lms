@@ -35,7 +35,7 @@ Content-Type: application/json
 
 {
   "email": "john@doe.com",
-  "password": "Password@1234"
+  "password": "Password@123"
 }
 
 ### Get user profile
@@ -45,7 +45,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ
 
 ### Renew accessJWT
 GET {{rootUrl}}/api/v1/auth/renew-jwt
-Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzE1NjA2OCwiZXhwIjoxNzU1NzQ4MDY4fQ.usuUmQy_5tUGlZL69ZLsNkDifad32dW1arXTbe0Mivg
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzI3MzAwNCwiZXhwIjoxNzU1ODY1MDA0fQ.bewGqfDhYomXOHkFb16mAVCYshLogsr6nxOSzctPJug
 
 
 ### request OTP
@@ -66,3 +66,30 @@ Content-Type: application/json
   "password": "Password@1234",
   "otp": 7120
 }
+
+
+### Book API
+
+### Post new book
+POST {{rootUrl}}/api/v1/books
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzI2NTUyOSwiZXhwIjoxNzUzMjY2NDI5fQ.HU8i_4pD9sYSDhbrBLJ9ahURullwoRX1Tr9WMgmvFfE
+
+{
+  "title": "Sapiens",
+  "year": 2005,
+  "author": "Yuval Noah Harari",
+  "imgUrl": "https://m.media-amazon.com/images/I/713jIoMO3UL._SY522_.jpg",
+  "isbn": "978006231609733",
+  "genre": "Anthropology",
+  "description": "This is a description"
+}
+
+
+### Get book(s)
+GET {{rootUrl}}/api/v1/books
+
+
+### Get book(s) for admin
+GET {{rootUrl}}/api/v1/books/admin
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzI3MjM5MywiZXhwIjoxNzUzMjczMjkzfQ.rtGfvkvpb-kBs9Hz6ZN_DeBmHqRH4_ie0ONhcEna9fE

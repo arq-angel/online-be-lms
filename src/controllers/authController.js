@@ -120,7 +120,7 @@ export const loginUser = async (req, res, next) => {
         const jwts = await getJwts(user.email);
 
         // respond jwts
-        responseClient({
+        return responseClient({
           req,
           res,
           message: "Login successfull",

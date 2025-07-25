@@ -16,8 +16,10 @@ app.use(express.json());
 // api endpoints
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
+import bookRoutes from "./src/routes/bookRoutes.js";
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
+app.use("/api/v1/books", bookRoutes);
 
 // server status
 import { responseClient } from "./src/middleware/responseClient.js";
