@@ -45,7 +45,7 @@ const bookSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    expectedAvailableDate: {
+    expectedAvailable: {
       type: Date,
       default: null,
     },

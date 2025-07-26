@@ -3,14 +3,30 @@ import {
   insertNewBook,
   getAllPublicBooksController,
   getAllBooksController,
+  updateBookController,
+  deleteBookController,
 } from "../controllers/bookController.js";
 import {
   userAuthMiddleware,
   adminAuthMiddleware,
 } from "../middleware/authMiddleware.js";
-import { newBookDataValidation } from "../middleware/validation/bookDataValidation.js";
+import {
+  newBookDataValidation,
+  updateBookDataValidation,
+} from "../middleware/validation/bookDataValidation.js";
 
 const router = express.Router();
+
+// admin only access
+router.get(
+  "/admin",
+  userAuthMiddleware,
+  adminAuthMiddleware,
+  getAllBooksController
+);
+
+// public api access
+router.get("/", getAllPublicBooksController);
 
 // create new book
 router.post(
@@ -21,15 +37,21 @@ router.post(
   insertNewBook
 );
 
-// public api access
-router.get("/", getAllPublicBooksController);
-
-// admin only access
-router.get(
-  "/admin",
+// update the book
+router.put(
+  "/",
   userAuthMiddleware,
   adminAuthMiddleware,
-  getAllBooksController
+  updateBookDataValidation,
+  updateBookController
+);
+
+// delete the book
+router.delete(
+  "/:_id",
+  userAuthMiddleware,
+  adminAuthMiddleware,
+  deleteBookController
 );
 
 export default router;
