@@ -1,6 +1,8 @@
+import Joi from "joi";
 import {
   EXPECTED_AVAILABLE,
   ISBN_REQ,
+  LONG_STR,
   LONG_STR_REQ,
   SHORT_STR_REQ,
   STATUS_REQ,
@@ -16,7 +18,7 @@ export const newBookDataValidation = (req, res, next) => {
     description: LONG_STR_REQ,
     year: YEAR_REQ,
     author: SHORT_STR_REQ,
-    imgUrl: SHORT_STR_REQ,
+    // imgUrl: SHORT_STR_REQ,
     isbn: ISBN_REQ,
     genre: SHORT_STR_REQ,
   };
@@ -25,6 +27,9 @@ export const newBookDataValidation = (req, res, next) => {
 };
 
 export const updateBookDataValidation = (req, res, next) => {
+  req.body.expectedAvailable =
+    req.body.expectedAvailable === "null" ? null : req.body.expectedAvailable;
+
   // create schema or rules obj
   const obj = {
     _id: _ID_REQ,
@@ -36,6 +41,7 @@ export const updateBookDataValidation = (req, res, next) => {
     imgUrl: SHORT_STR_REQ,
     genre: SHORT_STR_REQ,
     expectedAvailable: EXPECTED_AVAILABLE,
+    imageList: LONG_STR_REQ.allow(""),
   };
 
   return validateData({ req, res, next, obj });

@@ -7,10 +7,12 @@ import {
   deleteBook,
 } from "../models/book/BookModel.js";
 import slugify from "slugify";
+import { deleteUploadedFiles } from "../utils/fileUtil.js";
 
 export const insertNewBook = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+    const { path } = req.file;
 
     const obj = {
       ...req.body,
@@ -24,6 +26,7 @@ export const insertNewBook = async (req, res, next) => {
         name: fName,
         adminId: _id,
       },
+      imgUrl: path,
     };
 
     const book = await createNewBook(obj);
@@ -40,6 +43,10 @@ export const insertNewBook = async (req, res, next) => {
           message: "Unable to insert new book in the database, try again later",
         });
   } catch (error) {
+    if (req.file || Array.isArray(req.files)) {
+      // proceed to delete the uploaded file
+      deleteUploadedFiles(req);
+    }
     if (error.message.includes("E11000 duplicate key")) {
       responseClient({
         req,
@@ -88,6 +95,16 @@ export const getAllBooksController = async (req, res, next) => {
 export const updateBookController = async (req, res, next) => {
   try {
     const { fName, _id } = req.userInfo;
+
+    console.log(req.body);
+
+    if (Array.isArray(req.files)) {
+      req.body.imageList = [
+        ...req.body.imageList.split(","),
+        ...req.files.map((obj) => obj.path),
+      ];
+    }
+
     const obj = {
       ...req.body,
       lastUpdatedBy: {

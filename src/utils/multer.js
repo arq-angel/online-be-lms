@@ -4,7 +4,7 @@ import multer from "multer";
 import fs from "fs";
 
 const __dirname = path.resolve();
-const filePathDestination = path.join(__dirname, "./public/img");
+const filePathDestination = "public/img";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
