@@ -24,6 +24,9 @@ export const SHORT_STR_REQ = SHORT_STR.required();
 export const LONG_STR = Joi.string().min(1).max(5000);
 export const LONG_STR_REQ = LONG_STR.required();
 
+export const STR_ARRAY = Joi.array().items(Joi.string());
+export const STR_ARRAY_REQ = STR_ARRAY.required();
+
 export const YEAR = Joi.number()
   .integer()
   .min(1901)

@@ -7,7 +7,7 @@ import {
   deleteBook,
 } from "../models/book/BookModel.js";
 import slugify from "slugify";
-import { deleteUploadedFiles } from "../utils/fileUtil.js";
+import { deleteFile, deleteUploadedFiles } from "../utils/fileUtil.js";
 
 export const insertNewBook = async (req, res, next) => {
   try {
@@ -27,6 +27,7 @@ export const insertNewBook = async (req, res, next) => {
         adminId: _id,
       },
       imgUrl: path,
+      imageList: Array.isArray(path) ? [...path] : [path],
     };
 
     const book = await createNewBook(obj);
@@ -97,10 +98,20 @@ export const updateBookController = async (req, res, next) => {
     const { fName, _id } = req.userInfo;
 
     console.log(req.body);
+    req.body.imageList = req.body.imageList.split(",");
+
+    // remove imgToDelete list from imageList
+    if (req.body.imgToDelete.length) {
+      req.body.imageList = req.body.imageList.filter(
+        (img) => !req.body.imgToDelete.includes(img)
+      );
+
+      req.body.imgToDelete.map((img) => deleteFile(img));
+    }
 
     if (Array.isArray(req.files)) {
       req.body.imageList = [
-        ...req.body.imageList.split(","),
+        ...req.body.imageList,
         ...req.files.map((obj) => obj.path),
       ];
     }
@@ -137,6 +148,8 @@ export const deleteBookController = async (req, res, next) => {
     const { _id } = req.params;
 
     const book = await deleteBook(_id);
+
+    book.imageList.map((img) => deleteFile(img));
 
     book?._id
       ? responseClient({

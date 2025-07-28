@@ -1,4 +1,3 @@
-import Joi from "joi";
 import {
   EXPECTED_AVAILABLE,
   ISBN_REQ,
@@ -6,6 +5,7 @@ import {
   LONG_STR_REQ,
   SHORT_STR_REQ,
   STATUS_REQ,
+  STR_ARRAY,
   YEAR_REQ,
   _ID_REQ,
 } from "./joiConst.js";
@@ -30,6 +30,15 @@ export const updateBookDataValidation = (req, res, next) => {
   req.body.expectedAvailable =
     req.body.expectedAvailable === "null" ? null : req.body.expectedAvailable;
 
+  // Normalize to an array
+  // when there is only one value in the formData it is converted to string
+  // e.g. while selecting only one image to delete
+  req.body.imgToDelete = Array.isArray(req.body.imgToDelete)
+    ? req.body.imgToDelete
+    : req.body.imgToDelete
+    ? [req.body.imgToDelete]
+    : [];
+
   // create schema or rules obj
   const obj = {
     _id: _ID_REQ,
@@ -42,6 +51,7 @@ export const updateBookDataValidation = (req, res, next) => {
     genre: SHORT_STR_REQ,
     expectedAvailable: EXPECTED_AVAILABLE,
     imageList: LONG_STR_REQ.allow(""),
+    imgToDelete: STR_ARRAY,
   };
 
   return validateData({ req, res, next, obj });
