@@ -9,7 +9,7 @@ import { getUserByEmail, getOneUser } from "../models/user/UserModel.js";
 
 export const userAuthMiddleware = async (req, res, next) => {
   const { authorization } = req.headers;
-  let message = "";
+  let message = "Unauthorized";
 
   // get accessJWT
   if (authorization) {
