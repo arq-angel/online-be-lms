@@ -36,7 +36,7 @@ export const userAuthMiddleware = async (req, res, next) => {
 
     message = decoded === "jwt expired" ? decoded : "Unauthorized";
   }
-  responseClient({ req, res, message, statusCode: 401 });
+  return responseClient({ req, res, message, statusCode: 401 });
 };
 
 export const adminAuthMiddleware = async (req, res, next) => {
@@ -85,5 +85,5 @@ export const renewAccessJWTMiddleware = async (req, res, next) => {
       }
     }
   }
-  responseClient({ req, res, message, statusCode: 401 });
+  return responseClient({ req, res, message, statusCode: 401 });
 };
