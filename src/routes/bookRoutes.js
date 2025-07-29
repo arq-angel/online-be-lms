@@ -5,6 +5,7 @@ import {
   getAllBooksController,
   updateBookController,
   deleteBookController,
+  getSinglePublicBookController,
 } from "../controllers/bookController.js";
 import {
   userAuthMiddleware,
@@ -25,6 +26,12 @@ router.get(
   adminAuthMiddleware,
   getAllBooksController
 );
+
+// public api access
+router.get("/", getAllPublicBooksController);
+
+// public api access for single books
+router.get("/public/:slug", getSinglePublicBookController);
 
 // public api access
 router.get("/", getAllPublicBooksController);

@@ -5,6 +5,7 @@ import {
   getAllBooks,
   updateBook,
   deleteBook,
+  findABook,
 } from "../models/book/BookModel.js";
 import slugify from "slugify";
 import { deleteFile, deleteUploadedFiles } from "../utils/fileUtil.js";
@@ -72,6 +73,26 @@ export const getAllPublicBooksController = async (req, res, next) => {
       res,
       payload,
       message: "Books have been fetched successfully",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getSinglePublicBookController = async (req, res, next) => {
+  try {
+    const { slug } = req.params;
+    const filter = {
+      slug,
+      status: "active",
+    };
+    const payload = await findABook(filter);
+
+    responseClient({
+      req,
+      res,
+      payload,
+      message: "Here is the selected book!",
     });
   } catch (error) {
     next(error);

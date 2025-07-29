@@ -89,6 +89,9 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ
 ### Get book(s)
 GET {{rootUrl}}/api/v1/books
 
+### Get single book
+GET {{rootUrl}}/api/v1/books/public/clean-code
+
 
 ### Get book(s) for admin
 GET {{rootUrl}}/api/v1/books/admin
