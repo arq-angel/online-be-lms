@@ -19,9 +19,11 @@ app.use(express.static("public"));
 import authRoutes from "./src/routes/authRoutes.js";
 import userRoutes from "./src/routes/userRoutes.js";
 import bookRoutes from "./src/routes/bookRoutes.js";
+import borrowRoutes from "./src/routes/borrowRoutes.js";
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/books", bookRoutes);
+app.use("/api/v1/borrows", borrowRoutes);
 
 // server status
 import { responseClient } from "./src/middleware/responseClient.js";

@@ -96,3 +96,29 @@ GET {{rootUrl}}/api/v1/books/public/clean-code
 ### Get book(s) for admin
 GET {{rootUrl}}/api/v1/books/admin
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1MzI3MjM5MywiZXhwIjoxNzUzMjczMjkzfQ.rtGfvkvpb-kBs9Hz6ZN_DeBmHqRH4_ie0ONhcEna9fE
+
+
+
+### Borrow APIs ========
+### insert new borrow
+POST {{rootUrl}}/api/v1/borrows
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1Mzk1ODA4NCwiZXhwIjoxNzUzOTU4OTg0fQ.NDLiM7j6DHbqpSc4TTdR2LLZFXsDPsmeSTt6OlSS6tY
+
+[
+  {
+  "bookId": "68884beb1a4a0f0436c31994",
+  "thumbnail": "public/img/1753782248145-989903817-book_01.jpg",
+  "bookTitle": "Clean Code: A Handbook of Agile Software Craftsmanship"
+},
+{
+  "bookId": "68884beb1a4a0f0436c31994",
+  "thumbnail": "public/img/1753782248145-989903817-book_01.jpg",
+  "bookTitle": "Clean Code: A Handbook of Agile Software Craftsmanship"
+},
+{
+  "bookId": "68884beb1a4a0f0436c31994",
+  "thumbnail": "public/img/1753782248145-989903817-book_01.jpg",
+  "bookTitle": "Clean Code: A Handbook of Agile Software Craftsmanship"
+}
+]
