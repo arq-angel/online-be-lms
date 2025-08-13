@@ -5,17 +5,13 @@ export const createBorrows = (borrowsArg) => {
   return BorrowSchema.insertMany(borrowsArg);
 };
 
-// // update user
-// export const updateUser = (filter, update) => {
-//   return BorrowSchema.findOneAndUpdate(filter, update, { new: true });
-// };
+// user filter to get borrows for specific user
+// if @filter is undefined, it will return entire records
+export const getBorrows = (filter) => {
+  return BorrowSchema.find(filter);
+};
 
-// // get user by email, @email: type string
-// export const getUserByEmail = (email) => {
-//   return BorrowSchema.findOne({ email });
-// };
-
-// // get one user slower process
-// export const getOneUser = (filter) => {
-//   return BorrowSchema.findOne(filter);
-// };
+// update borrow table
+export const updateBorrow = (filter, obj) => {
+  return BorrowSchema.findOneAndUpdate(filter, obj);
+};

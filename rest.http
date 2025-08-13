@@ -122,3 +122,12 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZ
   "bookTitle": "Clean Code: A Handbook of Agile Software Craftsmanship"
 }
 ]
+
+### return book
+PATCH {{rootUrl}}/api/v1/borrows
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvaG5AZG9lLmNvbSIsImlhdCI6MTc1NTA4MzI4NiwiZXhwIjoxNzU1MDg0MTg2fQ.RgByQ3DlQU5NPf-g4zyU3oZ55PFCnYrNM8-B5gECZxg
+
+{
+  "_id": "689c6ab6fb9f47313b52df77"
+}
