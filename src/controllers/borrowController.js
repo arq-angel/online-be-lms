@@ -4,7 +4,7 @@ import {
   createBorrows,
   getBorrows,
   updateBorrow,
-} from "../models/BorrowHistory/BorrowHistoryModel.js";
+} from "../models/borrowHistory/BorrowHistoryModel.js";
 
 const BOOK_DUE_DAYS = 15;
 
